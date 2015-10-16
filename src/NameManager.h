@@ -1,0 +1,39 @@
+#ifndef _NAME_MANAGER_
+#define _NAME_MANAGER_
+
+#include <string>
+using namespace std;
+
+#define CREATE_VALUE(NAME) static const string NAME = #NAME;
+#define CREATE_VALUE_WITH_VALUE(NAME, VALUE) static const string NAME = VALUE;
+
+namespace NAME_MGR
+{
+//-------------------------------------------------
+//Ballon Canvas Name
+//-------------------------------------------------
+
+	CREATE_VALUE(B1_BACKGROUND);
+	CREATE_VALUE(B2_VIDEO_SET1);
+	CREATE_VALUE(B3_VIDEO_SET2);
+	CREATE_VALUE(B4_VIDEO_SET3);
+	CREATE_VALUE(B5_ROTATE_RECT);
+	CREATE_VALUE(B6_OPEN);
+	CREATE_VALUE(B7_NOISE);
+	
+	CREATE_VALUE(C1_RAIN);
+	CREATE_VALUE(C2_SPLIT_BALL);
+	CREATE_VALUE(C3_WAVE);
+	CREATE_VALUE(C4_SNAKE);
+	CREATE_VALUE(C5_FIREWORK);
+	CREATE_VALUE(C6_SCANNER_H);	
+	CREATE_VALUE(C7_SCANNER_V);
+
+	CREATE_VALUE(F1_WATERFALL);
+	CREATE_VALUE(F2_CROSS);
+	CREATE_VALUE(F3_SIMPLE_BLINK);
+};
+
+
+
+#endif //_NAME_MANAGER_
