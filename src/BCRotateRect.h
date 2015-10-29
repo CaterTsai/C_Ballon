@@ -6,14 +6,14 @@
 
 typedef struct _stRotateRect
 {
-	_stRotateRect(float fDurction, ofVec2f Central);
+	_stRotateRect(ofColor c, float fDurction, ofVec2f Central);
 	void update(float fDelta);
 	void draw();
 
 	ofxAnimatableFloat	_AnimRotate;
 	ofxAnimatableFloat	_AnimSize;
 	ofVec2f				_Central;
-	bool				_bDie;
+	bool					_bDie;
 	ofColor				_Color;
 }stRotateRect;
 
@@ -25,7 +25,7 @@ public:
 	void update(const float fDelta) override;
 	void draw() override;
 	void start() override;
-	void stop() override;
+	void setBaseColor(ofColor c) override;
 	float getTriggerTime() override;
 
 private:
@@ -34,5 +34,6 @@ private:
 	ofColor			_Background;
 	float				_fTimer;
 	list<stRotateRect>	_RectList;
+	int					_iColorFlag;
 };
 #endif // !OFX_BALLON_CANVAS_ROTATE_RECT

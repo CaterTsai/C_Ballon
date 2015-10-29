@@ -1,7 +1,7 @@
 #include "BCNoise.h"
 
 BCNoise::BCNoise()
-	:BCBase(eBC_NOISE)
+	:BCBase(eBC_NOISE, eG_BACKGROUND)
 	,_fTimer(0)
 	,_UnitSize(cCANVAS_WIDTH/cCOL_NUM, cCANVAS_HEIGHT/cROW_NUM)
 {
@@ -45,16 +45,4 @@ void BCNoise::draw()
 		}
 	}
 	ofPopStyle();
-}
-
-//--------------------------------------------------------------
-void BCNoise::start()
-{
-	_bStart = true;
-}
-
-//--------------------------------------------------------------
-void BCNoise::stop()
-{
-	_bStart = false;
 }

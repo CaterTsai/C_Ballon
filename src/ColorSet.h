@@ -2,29 +2,26 @@
 #define OFX_COLOR_SET
 
 #include "ofMain.h"
-
-const static int cMAX_COLOR_SET_SIZE = 10;
+#include "BCprotocol.h"
 
 class ColorSet
 {
 public:
-	ColorSet()
-		:_setIdx(0)
-	{};
+	ColorSet();
+
 	~ColorSet()
 	{
 		Destory();
 	}
 
-	void setup();
-	
-	ofColor getRandomColor() const;
-	ofColor getColor(int idx) const;
-	void changeColorSet(int idx);
+	ofColor getColor(int iType);
+
+	void setHue(float Hue);
+	void setLight(float fLight);
 
 private:
-	int												_setIdx;
-	vector<vector<ofColor>>		_colorManager;
+	ofColor										_MainColor;
+	map<eBC_TYPE, ofColor>	_ColorMap;	
 
 //-------------------
 //Singleton

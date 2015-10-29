@@ -1,15 +1,13 @@
 #include "BCRain.h"
 
-
 #pragma region Rain struct
 //--------------------------------------------------------------
-stRain::_stRain(float fDurction)
+stRain::_stRain(ofColor c, float fDurction)
 	:_bDie(false)
 	,_PosX(ofRandom(0, cCANVAS_WIDTH))
 	,_fSize(0.05 * cCANVAS_WIDTH)
 {
-	//_Color.set(ofRandom(0, 255), ofRandom(0, 255), ofRandom(0, 255));
-	_Color.set(0, 255, 0);
+	_Color.set(c);
 
 	_AnimDrop.setDuration(fDurction);
 	_AnimDrop.setCurve(AnimCurve::LINEAR);
@@ -58,7 +56,7 @@ void stRain::draw()
 #pragma region Ballon Canvas Rain
 //--------------------------------------------------------------
 BCRain::BCRain()
-	:BCBase(eBC_RAIN)
+	:BCBase(eBC_RAIN, eG_OBJECT)
 	,_fTimer(0.0)
 	,_fFadeAmnt(10)
 {}
@@ -114,9 +112,10 @@ void BCRain::start()
 }
 
 //--------------------------------------------------------------
-void BCRain::stop()
+void BCRain::setBaseColor(ofColor c)
 {
-	_bStart = false;	
+	_baseColor = c;
+	_baseColor.setHueAngle(c.getHueAngle() + 180 + ofRandom(-30, 30));
 }
 
 //--------------------------------------------------------------
@@ -128,7 +127,9 @@ float BCRain::getTriggerTime()
 //--------------------------------------------------------------
 void BCRain::addRain()
 {
-	stRain NewRain_(getTriggerTime() * ofRandom(32, 64));
+	ofColor rainC_ = _baseColor;
+	rainC_.setSaturation(ofRandom(200, 255));
+	stRain NewRain_(rainC_, getTriggerTime() * ofRandom(32, 64));
 	_RainList.push_back(NewRain_);
 }
 #pragma endregion

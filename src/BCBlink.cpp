@@ -1,11 +1,13 @@
 #include "BCBlink.h"
 
-BCBlink::BCBlink()
-	:BCBase(eBC_BLINK)
+BCBlink::BCBlink(ofColor& color)
+	:BCBase(eBC_BLINK, eG_FOREGROUND)
 	,_bBlink(false)
-	,_color(255)
+	,_FixColor(color)
 	,_Timer(.0f)
-{}
+{
+	_baseColor.set(color);
+}
 
 //--------------------------------------------------------------
 void BCBlink::update(const float fDelta)
@@ -32,7 +34,7 @@ void BCBlink::draw()
 	}
 
 	ofPushStyle();
-	ofSetColor(_color);
+	ofSetColor(_FixColor);
 	{
 		ofRect(0, 0, cCANVAS_WIDTH, cCANVAS_HEIGHT);
 	}

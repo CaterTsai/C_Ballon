@@ -55,8 +55,6 @@ public:
 
 	void update(const float fDelta) override;
 	void draw() override;
-	void start() override;
-	void stop() override;
 
 private:
 	const ofVec2f					_UnitSize;

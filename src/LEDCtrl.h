@@ -2,6 +2,7 @@
 #define OFX_LED_CONTRAL
 
 #include "constParameter.h"
+#include "ledColor.h"
 
 class LEDCtrl
 {

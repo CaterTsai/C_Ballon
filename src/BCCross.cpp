@@ -1,8 +1,7 @@
 #include "BCCross.h"
 
 BCCross::BCCross()
-	:BCBase(eBC_CROSS)
-	,_color(128, 255, 255)
+	:BCBase(eBC_CROSS, eG_FOREGROUND)
 	,_UnitSize(cCANVAS_WIDTH/cCOL_NUM, cCANVAS_HEIGHT/cROW_NUM)
 {
 	for(int idx_ = 0; idx_ < cROW_NUM; idx_++)
@@ -65,7 +64,7 @@ void BCCross::draw()
 				}
 				if(fAlpha_ > 0)
 				{
-					ofSetColor(_color, fAlpha_);
+					ofSetColor(_baseColor, fAlpha_);
 					
 					ofRect(posX_, posY_, _UnitSize.x, _UnitSize.y);
 				}
@@ -78,7 +77,6 @@ void BCCross::draw()
 //--------------------------------------------------------------
 void BCCross::start()
 {
-	_color.set(ColorSet::GetInstance()->getRandomColor());
 	_bStart = true;
 	for(int idx_ = 0; idx_ < cROW_NUM; idx_++)
 	{
@@ -88,9 +86,11 @@ void BCCross::start()
 }
 
 //--------------------------------------------------------------
-void BCCross::stop()
+void BCCross::setBaseColor(ofColor c)
 {
-	_bStart = false;
+	_baseColor.set(c);
+	_baseColor.setHueAngle(c.getHueAngle() + 240.0 + ofRandom(-20, 20));
+
 }
 
 //--------------------------------------------------------------

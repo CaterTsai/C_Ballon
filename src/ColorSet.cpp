@@ -1,50 +1,16 @@
 #include "ColorSet.h"
 
 //--------------------------------------------------------------
-void ColorSet::setup()
+ColorSet::ColorSet()
+	:_MainColor(255, 0, 0)
 {
-	//Color set 1
-	vector<ofColor> colorset1_;
-	colorset1_.push_back(ofColor(47, 138, 138));
-	colorset1_.push_back(ofColor(242, 202, 4));
-	colorset1_.push_back(ofColor(216, 142, 4));
-	colorset1_.push_back(ofColor(191, 53, 3));
-	colorset1_.push_back(ofColor(114, 22, 2));
+	ofColor Background_ = _MainColor;
+	Background_.setSaturation(ofRandom(128, 255));
+	_ColorMap.insert(make_pair(eBC_BACKGROUND, Background_));
 
-	_colorManager.push_back(colorset1_);
-
-	_setIdx = 0;
-}
-
-//--------------------------------------------------------------
-ofColor ColorSet::getRandomColor() const
-{
-	int size_ = _colorManager[_setIdx].size();
-	return _colorManager[_setIdx][rand() % size_];
-}
-
-//--------------------------------------------------------------
-ofColor ColorSet::getColor(int idx) const
-{
-	int returnId_ = 0;
-	if(idx >= 0 && idx < _colorManager[_setIdx].size())
-	{
-		returnId_ = idx;
-	}
-	else
-	{
-		returnId_ = 0;
-	}
-	return _colorManager[_setIdx][returnId_];
-}
-
-//--------------------------------------------------------------
-void ColorSet::changeColorSet(int idx)
-{
-	if(idx >= 0 && idx < _colorManager.size())
-	{
-		_setIdx  = idx;
-	}
+	ofColor Background_ = _MainColor;
+	Background_.setSaturation(ofRandom(128, 255));
+	_ColorMap.insert(make_pair(eBC_BACKGROUND, Background_));
 }
 
 //--------------------------------------------------------------

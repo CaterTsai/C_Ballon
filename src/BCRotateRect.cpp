@@ -2,11 +2,11 @@
 
 #pragma region Rotate Rect struct
 //--------------------------------------------------------------
-stRotateRect::_stRotateRect(float fDurction, ofVec2f Central)
+stRotateRect::_stRotateRect(ofColor c, float fDurction, ofVec2f Central)
 	:_Central(Central)
 	,_bDie(false)
 {
-	_Color.set(ofRandom(0, 255), ofRandom(0, 255), ofRandom(0, 255));
+	_Color.set(c);
 
 	_AnimRotate.setDuration(fDurction);
 	_AnimRotate.setRepeatType(AnimRepeat::PLAY_ONCE);
@@ -61,9 +61,10 @@ void stRotateRect::draw()
 #pragma region Ballon Canvas Rotate Rect
 //--------------------------------------------------------------
 BCRotateRect::BCRotateRect()
-	:BCBase(eBC_ROTATE_RECT)
+	:BCBase(eBC_ROTATE_RECT, eG_BACKGROUND)
 	,_fTimer(0.0)
 	,_Background(0)
+	,_iColorFlag(1)
 {}
 
 //--------------------------------------------------------------
@@ -117,15 +118,18 @@ void BCRotateRect::draw()
 //--------------------------------------------------------------
 void BCRotateRect::start()
 {
+	_Background.set(0);
+	_iColorFlag = 1;
 	addRect();
 	_fTimer = getTriggerTime();
 	_bStart = true;
 }
 
 //--------------------------------------------------------------
-void BCRotateRect::stop()
+void BCRotateRect::setBaseColor(ofColor c)
 {
-	_bStart = false;
+	_baseColor = c;
+	_baseColor.setSaturation(ofRandom(200, 255));
 }
 
 //--------------------------------------------------------------
@@ -137,8 +141,12 @@ float BCRotateRect::getTriggerTime()
 //--------------------------------------------------------------
 void BCRotateRect::addRect()
 {
-	stRotateRect NewRect_(getTriggerTime() * 2, ofVec2f(cCANVAS_WIDTH/2, cCANVAS_HEIGHT/2));
+	ofColor rectColor_ = _baseColor;
+	rectColor_.setHueAngle(_baseColor.getHueAngle() + _iColorFlag * 45);
+
+	stRotateRect NewRect_(rectColor_, getTriggerTime() * 2, ofVec2f(cCANVAS_WIDTH/2, cCANVAS_HEIGHT/2));
 	_RectList.push_back(NewRect_);
+	_iColorFlag *= -1;
 }
 #pragma endregion
 

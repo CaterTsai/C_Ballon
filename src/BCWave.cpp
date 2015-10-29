@@ -1,13 +1,12 @@
 #include "BCWave.h"
 
 BCWave::BCWave(vector<stSinWave>& wg)
-	:BCBase(eBC_TYPE::eBC_WAVE)
+	:BCBase(eBC_TYPE::eBC_WAVE, eG_OBJECT)
 	,_WaveUnitSize(cCANVAS_WIDTH/(float)cWAVE_DENSITY)
 	,_DegreeInterval(360.0/cWAVE_DENSITY)
 	,_Degree(0)
 	,_DegreeDelta(0)
 {
-
 	//initial wave
 	float fX_ = _WaveUnitSize/2;
 	for(int idx_ = 0; idx_ < cWAVE_DENSITY; idx_++)
@@ -54,7 +53,7 @@ void BCWave::draw()
 	{
 		ofPushStyle();
 		ofFill();
-		ofSetColor(255, 128, 0);
+		ofSetColor(_baseColor);
 		{
 			for(int idx_ = 0; idx_ < cWAVE_DENSITY; idx_++)
 			{
@@ -73,13 +72,16 @@ void BCWave::start()
 	{	
 		_WavePosList[idx_].y = 0;
 	}
+
 	_bStart = true;
 }
 
 //--------------------------------------------------------------
-void BCWave::stop()
+void BCWave::setBaseColor(ofColor c)
 {
-	_bStart = false;
+	_baseColor = c;
+	_baseColor.setHueAngle(c.getHueAngle() + 180 + ofRandom(-30, 30));
+	_baseColor.setSaturation(ofRandom(200, 255));
 }
 
 //--------------------------------------------------------------

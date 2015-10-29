@@ -8,6 +8,7 @@
 #include "ofxMidi.h"
 #include "ofxGui.h"
 
+#include "MyoCtrl.h"
 #include "NameManager.h"
 #include "BallonWall.h"
 #include "BallonCanvas.h"
@@ -39,18 +40,23 @@ public:
 
 private:
 	void setSpeed();
-	void manualBlink(bool enable);
+	void setColor();
+	void manualBlink(bool enable, ofColor color = ofColor(0));
 
 	void nextCtrl();
 	void prevCtrl();
 
 private:
 	bool					_bDrawCanvas, _bBlink;
+	ofColor				_manualBlinkColor, _mainColor;
 	BallonWall		_BallonWall;
 
 	string									_NowCtrl;
 	list<string>						_BCDisplayList;
 	map<string, BCBase*>	_BCMap;
+		
+	map<eBC_GROUP, ofFbo>	_GroupCanvas;
+	map<eBC_GROUP, int> _GroupAlpha;
 #pragma endregion
 
 #pragma region GUI
@@ -64,12 +70,13 @@ private:
 	void sethighlight(string strName, bool value);
 
 private:
-	bool			_bDisplayGUI;
+	bool			_bDisplayGUI, _bHaveNext;
 
 	ofxButton									_NextCtrl, _PrevCtrl;
 	map<string, ofxToggle>		_ToggleList;
-	ofxIntSlider _BPMSlider;
-	ofxPanel	_GUI;
+	//ofxIntSlider _BPMSlider;
+	ofxPanel									_GUI;
+	ofTrueTypeFont						_GUIFont;
 #pragma endregion
 	
 #pragma region Midi Ctrl
@@ -79,12 +86,13 @@ public:
 	void newMidiMessage(ofxMidiMessage& msg) override;
 
 private:
+	void resetMidiLED();
 	void TapBPM();
 
 private:
 	float				_fTapTimer;
 	ofxMidiIn		_midiIn;
-	
+	ofxMidiOut	_midiOut;	
 #pragma endregion
 
 };

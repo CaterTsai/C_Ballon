@@ -30,14 +30,13 @@ public:
 	void update(const float fDelta) override;
 	void draw() override;
 	void start() override;
-	void stop() override;
+	void setBaseColor(ofColor c) override;
 	float getTriggerTime() override;
 
 private:
 	float					_Degree, _DegreeDelta, _DegreeInterval;
 	float					_WaveUnitSize;
-	ofVec2f					_WavePosList[cWAVE_DENSITY];
-
+	ofVec2f				_WavePosList[cWAVE_DENSITY];
 	vector<stSinWave>		_WaveGenerator;
 };
 

@@ -71,7 +71,6 @@ void BallonWall::draw(int x, int y)
 	}
 	ofPopMatrix();
 
-
 	if(cUSE_LED_CTRL)
 	{
 		_LedCtrl.setColor(_PixelList);

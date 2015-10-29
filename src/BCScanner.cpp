@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 BCScanner::BCScanner(ofVec2f Start, ofVec2f End, int iLength)
-	:BCBase(eBC_SCANNER)
+	:BCBase(eBC_SCANNER, eG_OBJECT)
 	,_Start(Start)
 	,_End(End)
 	,_iLength(iLength)
@@ -40,7 +40,7 @@ void BCScanner::draw()
 	{
 		for(int idx_ = 0; idx_ < _iLineNum; idx_++)
 		{
-			ofSetColor(_lineColor, 255 - (255 * idx_  / (float)_iLineNum) );
+			ofSetColor(_baseColor, 255 - (255 * idx_  / (float)_iLineNum) );
 			int iPos_ = 0;
 
 			if(_AnimScan.getTargetValue() == 1.0)
@@ -62,16 +62,16 @@ void BCScanner::draw()
 //--------------------------------------------------------------
 void BCScanner::start()
 {
-	_lineColor.set(ColorSet::GetInstance()->getRandomColor());
 	_bStart = true;
 	_bFlip = true;
 	scan();
 }
 
 //--------------------------------------------------------------
-void BCScanner::stop()
+void BCScanner::setBaseColor(ofColor c)
 {
-	_bStart = false;
+	_baseColor = c;
+	_baseColor.setHueAngle(c.getHueAngle() + 180 + ofRandom(-30, 30));
 }
 
 //--------------------------------------------------------------

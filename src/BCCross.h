@@ -11,13 +11,12 @@ public:
 	void update(const float fDelta) override;
 	void draw() override;
 	void start() override;
-	void stop() override;
 	void setDuratcionTime(float duratctionT) override;
+	void setBaseColor(ofColor c) override;
 	float getTriggerTime() override;
 
 private:
 	const ofVec2f	_UnitSize;
-	ofColor				_color;
 	deque<int>		_CrossMap[cROW_NUM];
 	float					_Timer[cROW_NUM];
 	float					_BaseTimer[cROW_NUM];

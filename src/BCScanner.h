@@ -12,7 +12,7 @@ public:
 	void update(const float fDelta) override;
 	void draw() override;
 	void start() override;
-	void stop() override;
+	void setBaseColor(ofColor c) override;
 	float getTriggerTime() override;
 
 private:
@@ -22,7 +22,6 @@ private:
 	ofVec2f							_Start, _End;
 	int									_iLength;
 	int									_iLineNum;
-	ofColor							_lineColor;
 	ofxAnimatableFloat	_AnimScan;
 
 };

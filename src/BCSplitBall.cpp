@@ -96,7 +96,7 @@ bool SplitBall::getAlive()
 
 #pragma region Ballon Split Ball
 BCSplitBall::BCSplitBall()
-	:BCBase(eBC_SPLIT_BALL)
+	:BCBase(eBC_SPLIT_BALL, eG_OBJECT)
 {}
 
 //--------------------------------------------------------------

@@ -7,7 +7,7 @@
 class Firework
 {
 public:
-	Firework(float fDurction, int SparkNum, int height);
+	Firework(ofColor c, float fDurction, int SparkNum, int height);
 	void update(float fDelta);
 	void draw();
 	
@@ -34,6 +34,7 @@ public:
 	void draw() override;
 	void start() override;
 	void stop() override;
+	void setBaseColor(ofColor c) override;
 
 private:
 	void addFirework();

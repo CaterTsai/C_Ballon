@@ -39,7 +39,7 @@ public:
 	void update(const float fDelta) override;
 	void draw() override;
 	void start() override;
-	void stop() override;
+	void setBaseColor(ofColor c) override;
 	float getTriggerTime() override;
 
 private:
@@ -48,7 +48,6 @@ private:
 private:
 	const ofVec2f					_UnitSize;
 	float									_fTimer;
-	ofColor								_color;
 	list<stBCFallList>				_WaterfallList;
 };
 

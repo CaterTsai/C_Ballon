@@ -1,7 +1,7 @@
 #include "BCVideos.h"
 
 BCVideos::BCVideos(string VideoFolder)
-	:BCBase(eBC_VIDEO)
+	:BCBase(eBC_VIDEO, eG_BACKGROUND)
 	,_VideoIdx(0)
 {
 	ofDirectory	dir_(VideoFolder);

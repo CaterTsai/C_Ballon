@@ -39,6 +39,7 @@ public:
 	void draw() override;
 	void start() override;
 	void stop() override;
+	void setBaseColor(ofColor c) override;
 	float getTriggerTime() override;
 
 private:

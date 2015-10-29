@@ -2,9 +2,8 @@
 
 //--------------------------------------------------------------
 BCWaterfall::BCWaterfall()
-	:BCBase(eBC_WATERFALL)
+	:BCBase(eBC_WATERFALL, eG_FOREGROUND)
 	,_fTimer(0.0)
-	,_color(128, 255, 255)
 	,_UnitSize(cCANVAS_WIDTH/cCOL_NUM, cCANVAS_HEIGHT/cROW_NUM)
 {}
 
@@ -59,7 +58,7 @@ void BCWaterfall::draw()
 				if(Iter_.bDisplayArray[idx_])
 				{
 					int posX_ = idx_ * _UnitSize.x;
-					ofSetColor(_color, Iter_.fAlpha[idx_]);
+					ofSetColor(_baseColor, Iter_.fAlpha[idx_]);
 					ofRect(posX_, posY_, _UnitSize.x, _UnitSize.y);
 				}
 			}
@@ -77,9 +76,10 @@ void BCWaterfall::start()
 }
 
 //--------------------------------------------------------------
-void BCWaterfall::stop()
+void BCWaterfall::setBaseColor(ofColor c)
 {
-	_bStart = false;
+	_baseColor.set(c);
+	_baseColor.setHueAngle(c.getHueAngle() + 240.0 + ofRandom(-20, 20));
 }
 
 //--------------------------------------------------------------

@@ -6,7 +6,7 @@
 class BCBlink : public BCBase
 {
 public:
-	BCBlink();
+	BCBlink(ofColor& color);
 
 	void update(const float fDelta) override;
 	void draw() override;
@@ -15,7 +15,7 @@ public:
 
 private:
 	bool					_bBlink;
-	ofColor				_color;
+	ofColor				_FixColor;
 	float					_Timer;
 };
 

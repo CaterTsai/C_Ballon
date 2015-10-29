@@ -151,7 +151,7 @@ void Snake::turn()
 
 #pragma region BCSnake
 BCSnake::BCSnake()
-	:BCBase(eBC_SNAKE)
+	:BCBase(eBC_SNAKE, eG_OBJECT)
 	,_fTimer(0.0)
 {}
 
@@ -214,6 +214,14 @@ void BCSnake::stop()
 }
 
 //--------------------------------------------------------------
+void BCSnake::setBaseColor(ofColor c)
+{
+	_baseColor = c;
+	_baseColor.setHueAngle(c.getHueAngle() + 180 + ofRandom(-30, 30));
+
+}
+
+//--------------------------------------------------------------
 float BCSnake::getTriggerTime()
 {
 	return _fDuratcion;
@@ -256,7 +264,8 @@ void BCSnake::addSnake()
 		}
 	}
 
-	ofColor color_(0, 255, 64);
+	ofColor color_(_baseColor);
+	color_.setSaturation(ofRandom(200, 255));
 	Snake newSnake_(maxTurn_, color_, startPos_, vel_);
 	_SnakeMgr.push_back(newSnake_);
 }

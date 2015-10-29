@@ -93,7 +93,7 @@ private:
 #pragma endregion
 
 #pragma region LED Ctrl
-private:
+public:
 	vector<ofColor>	_PixelList;
 	LEDCtrl			_LedCtrl;
 #pragma endregion

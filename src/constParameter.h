@@ -21,20 +21,21 @@ static const int cRAIN_TAIL_NUM = 5;
 static const int cSNAKE_WIDTH = 30;
 static const int cFIREWORK_SIZE = 25;
 static const int cSCANNER_WIDTH = 30;
+static const int cTEXT_FONT_SIZE = 170;
 
 static const int cMAX_BPM = 320;
 static const int cMIN_BPM = 60;
 
 //Serial
-static const bool cUSE_LED_CTRL = false;
+static const bool cUSE_LED_CTRL = true;
 static const int cCOLOR_NUM = cCOL_NUM * cROW_NUM;
 static const int cSERIAL_BAUD = 115200;
-static const string cSERIAL_PORT = "COM5";
+static const string cSERIAL_PORT = "COM4";
 
 //GUI
 static const int cGUI_WIDTH = cCANVAS_WIDTH;
 static const int cGUI_HEIGHT = cWALL_HEIGHT;
-
+static const int cGUI_FONT_SIZE = 40;
 //Windows 
 static const int cWINDOW_WIDTH = cWALL_WIDTH + cGUI_WIDTH;
 static const int cWINDOW_HEIGHT = cWALL_HEIGHT;

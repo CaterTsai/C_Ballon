@@ -2,13 +2,13 @@
 
 #pragma region Firework
 //--------------------------------------------------------------
-Firework::Firework(float fDurction, int SparkNum, int height)
+Firework::Firework(ofColor c, float fDurction, int SparkNum, int height)
 	:_IsDie(false)
 	,_bExplode(false)
 	,_iSparkNum(SparkNum)
 	,_pos(ofRandom(0, cCANVAS_WIDTH), cCANVAS_HEIGHT)
 	,_iHeight(height)
-	,_Color(ColorSet::GetInstance()->getRandomColor())
+	,_Color(c)
 {
 	_AnimUp.setDuration(fDurction);
 	_AnimUp.setCurve(AnimCurve::QUADRATIC_EASE_OUT);
@@ -87,10 +87,9 @@ void Firework::draw()
 #pragma region BCFirework
 //--------------------------------------------------------------
 BCFirework::BCFirework()
-	:BCBase(eBC_FIREWORK)
+	:BCBase(eBC_FIREWORK, eG_OBJECT)
 	,_fTimer(0.0)
-{
-}
+{}
 
 //--------------------------------------------------------------
 void BCFirework::update(const float fDelta)
@@ -150,9 +149,18 @@ void BCFirework::stop()
 }
 
 //--------------------------------------------------------------
+void BCFirework::setBaseColor(ofColor c)
+{
+	_baseColor.set(c);
+	_baseColor.setHueAngle(c.getHueAngle() + 180);
+}
+
+//--------------------------------------------------------------
 void BCFirework::addFirework()
 {
-	Firework _newFirework(_fDuratcion, static_cast<int>(ofRandom(5, 8)), ofRandom(cCANVAS_HEIGHT * 0.2, cCANVAS_HEIGHT));
+	ofColor newColor_ = _baseColor;
+	newColor_.setHueAngle(newColor_.getHueAngle() + ofRandom(-40, 40));
+	Firework _newFirework(newColor_, _fDuratcion, static_cast<int>(ofRandom(5, 8)), ofRandom(cCANVAS_HEIGHT * 0.2, cCANVAS_HEIGHT));
 	_FireworkList.push_back(_newFirework);
 }
 #pragma endregion

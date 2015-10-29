@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 BCOpen::BCOpen()
-	:BCBase(eBC_OPEN)
+	:BCBase(eBC_OPEN, eG_BACKGROUND)
 	,_fOpenAngle(.0)
 	,_fOpenDist(0)
 	,_OpenSize(cCANVAS_WIDTH/2 * 1.5, cCANVAS_WIDTH * 1.5)
@@ -28,10 +28,15 @@ void BCOpen::draw()
 	ofPushStyle();
 	ofFill();
 	{
-		ofSetColor(_NextColor);
+		ofColor NextColor_, NowColor_;
+		NextColor_ = NowColor_ = _baseColor;
+		NextColor_.setHueAngle(_baseColor.getHueAngle() + _iColorFlag * 45);
+		NowColor_.setHueAngle(_baseColor.getHueAngle() - _iColorFlag * 45);
+
+		ofSetColor(NextColor_);
 		ofRect(0, 0, cCANVAS_WIDTH, cCANVAS_HEIGHT);
 
-		ofSetColor(_NowColor);
+		ofSetColor(NowColor_);
 		ofPushMatrix();
 		ofTranslate(cCANVAS_WIDTH/2, cCANVAS_HEIGHT/2);
 		ofRotateZ(_fOpenAngle);
@@ -52,14 +57,15 @@ void BCOpen::draw()
 void BCOpen::start()
 {
 	_bStart = true;
-	_NextColor.set(ofRandom(0, 255), ofRandom(0, 255), ofRandom(0, 255));
+	_iColorFlag = 1;
 	open();	
 }
 
 //--------------------------------------------------------------
-void BCOpen::stop()
+void BCOpen::setBaseColor(ofColor c)
 {
-	_bStart = false;
+	_baseColor = c;
+	_baseColor.setSaturation(ofRandom(200, 255));
 }
 
 //--------------------------------------------------------------
@@ -73,10 +79,8 @@ void BCOpen::open()
 {
 	_AnimOpenDist.setDuration(getTriggerTime());
 	_fOpenAngle = ofRandom(0, 180);
-	//_fOpenAngle = 0;
-	//_fOpenDist = cCANVAS_HEIGHT/2 * 1 / cos(_fOpenAngle);
 	_fOpenDist = cCANVAS_WIDTH;
-	_NowColor = _NextColor;
-	_NextColor.set(ofRandom(0, 255), ofRandom(0, 255), ofRandom(0, 255));
 	_AnimOpenDist.animateFromTo(0, 1);
+
+	_iColorFlag *= -1;
 }

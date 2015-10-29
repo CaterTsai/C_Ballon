@@ -22,15 +22,16 @@ void LEDCtrl::update()
 		return;
 	}
 
-	unsigned char color_[cCOLOR_NUM * 3 + 1] = {0};	
+	unsigned char color_[cCOLOR_NUM + 2] = {0};
+	color_[0] = 'h';
+
 	for(int i = 0; i < cCOLOR_NUM; ++i)
 	{
-		color_[i * 3] = _Color[i].r;
-		color_[i * 3 + 1] = _Color[i].g;
-		color_[i * 3 + 2] = _Color[i].b;
+		color_[i + 1] = ledColorMap::encode(_Color[i]);	
 	}
-	color_[cCOLOR_NUM * 3] = '\n';
-	_Serial.writeBytes(color_, cCOLOR_NUM * 3 + 1);
+	color_[cCOLOR_NUM + 1] = '\n';
+	_Serial.writeBytes(color_, cCOLOR_NUM + 2);
+
 }
 
 //--------------------------------------------------------------
@@ -51,26 +52,25 @@ void LEDCtrl::setColor(vector<ofColor>& newColorList)
 //--------------------------------------------------------------
 void LEDCtrl::initLedMap()
 {
-	for(int y = 0; y < cROW_NUM; ++y)
+	for(int x = 0; x < cCOL_NUM; ++x)
 	{
-		int LedX_, DeltaX_;
-		if( (y + 1) % 2 == 0 )
+		int StartLEDIdx_, DeltaLEDIdx_;
+		if(x % 2 == 0)
 		{
-			LedX_ = cCOL_NUM - 1;
-			DeltaX_ = -1;
+			StartLEDIdx_ = x * cROW_NUM + (cROW_NUM - 1);
+			DeltaLEDIdx_ = -1;
 		}
 		else
 		{
-			LedX_ = 0;
-			DeltaX_ = 1;
+			StartLEDIdx_ = x * cROW_NUM;
+			DeltaLEDIdx_ = 1;
 		}
 
-		for(int x = 0; x < cCOL_NUM; ++x)
+		for(int y = 0; y < cROW_NUM; ++y)
 		{
-			int LEDindex_ = y * cCOL_NUM + LedX_;
-			int ColorIndex_ = y * cCOL_NUM + x;
-			_LedMap[LEDindex_] = ColorIndex_;
-			LedX_ += DeltaX_;
+			int PixelIndex_ = y * cCOL_NUM + x;
+			_LedMap[PixelIndex_] = StartLEDIdx_;
+			StartLEDIdx_ += DeltaLEDIdx_;
 		}
 	}
 }

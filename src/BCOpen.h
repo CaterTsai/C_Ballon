@@ -12,7 +12,7 @@ public:
 	void update(const float fDelta) override;
 	void draw() override;
 	void start() override;
-	void stop() override;
+	void setBaseColor(ofColor c) override;
 	float getTriggerTime() override;
 
 private:
@@ -22,7 +22,7 @@ private:
 	float		_fOpenAngle, _fOpenDist;
 	ofVec2f _OpenSize;
 	ofxAnimatableFloat	_AnimOpenDist;
-	ofColor	_NowColor, _NextColor;
+	int			_iColorFlag;
 };
 
 #endif // !OFX_BALLON_CANVAS_OPEN
